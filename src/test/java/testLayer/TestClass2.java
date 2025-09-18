@@ -12,21 +12,18 @@ public class TestClass2 extends TestBase {
 	
 	@Test
 	public void testMethod3() throws InterruptedException {
-		Thread.sleep(10000);
+		Thread.sleep(3000);
 		WebDriver testDriver = DriverManager.getDriver();
-		Thread.sleep(10000);
 		testDriver.findElement(By.xpath("//a[contains(text(),'Cart')]")).click();
-		Thread.sleep(10000);
 		testDriver.findElement(By.xpath("//input[@placeholder='Search for products, brands and more']")).sendKeys("mobiles"+Keys.ENTER);
-		Thread.sleep(10000);
 
 		
 		
 	}
-	//@Test
+	@Test
 	public void testMethod4() throws InterruptedException {
 		WebDriver testDriver = DriverManager.getDriver();
-		Thread.sleep(5000);
+		Thread.sleep(3000);
 		testDriver.findElement(By.xpath("//a[contains(text(),'Cart')]")).click();
 		testDriver.findElement(By.xpath("//input[@placeholder='Search for products, brands and more']")).sendKeys("mobiles"+Keys.ENTER);
 		
