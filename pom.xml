@@ -16,14 +16,18 @@
 	</properties>
 
 	<dependencies>
-		<!--
-		https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+		<!-- Selenium -->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
 			<version>4.35.0</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.testng/testng -->
+		<!-- TestNG -->
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>7.11.0</version>
+		</dependency>
 		<!--
 		https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
 		<dependency>
@@ -32,17 +36,30 @@
 			<version>6.3.2</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.testng</groupId>
-			<artifactId>testng</artifactId>
-			<version>7.11.0</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<!-- Compiler plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.11.0</version>
+				<configuration>
+					<source>8</source>
+					<target>8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.2.5</version>
+				<configuration>
+					<suiteXmlFiles>
+						<suiteXmlFile>testng.xml</suiteXmlFile>
+					</suiteXmlFiles>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
 </project>
