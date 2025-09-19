@@ -1,4 +1,4 @@
-name: Java CI with Maven
+name: Java CI with Maven and Selenium
 
 on:
   push:
@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout code
-      - name: Checkout repository
+      # Step 1: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Set up Java
+      # Step 2: Set up JDK 17
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -23,17 +23,17 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      # Step 3: Set up Chrome (compatible with Selenium 4.35)
+      # Step 3: Set up Chrome 139
       - name: Set up Chrome
-        uses: browser-actions/setup-chrome@v3
+        uses: actions/setup-chrome@v1
         with:
-          chrome-version: '139.0.0'   # Pick version supported by Selenium
+          chrome-version: '139'
 
-      # Step 4: Set up ChromeDriver (matching Chrome)
+      # Step 4: Set up ChromeDriver 139
       - name: Set up ChromeDriver
-        uses: browser-actions/setup-chromedriver@v2
+        uses: webfactory/selenium-chromedriver@v1
         with:
-          chromedriver-version: '139.0.0'
+          version: '139'
 
       # Step 5: Build and run tests
       - name: Build with Maven
