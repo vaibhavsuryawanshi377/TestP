@@ -20,12 +20,19 @@ public class TestBase {
 		switch (browser.toLowerCase()) {
 		case "chrome":
 			ChromeOptions options = new ChromeOptions();
-			options.addArguments("--headless=new"); // ✅ run in headless mode (needed on GitHub Actions)
-			options.addArguments("--no-sandbox"); // ✅ required in CI
-			options.addArguments("--disable-dev-shm-usage");
-			options.addArguments("--disable-gpu");
 			options.addArguments("--remote-allow-origins=*");
-			options.addArguments("--user-data-dir=/tmp/chrome-profile"); // ✅ unique dir for profile
+
+			String os = System.getProperty("os.name").toLowerCase();
+			if (os.contains("linux")) {
+			    options.addArguments("--headless=new");
+			    options.addArguments("--no-sandbox");
+			    options.addArguments("--disable-dev-shm-usage");
+			    options.addArguments("--disable-gpu");
+			    options.addArguments("--user-data-dir=/tmp/chrome-profile");
+			} else {
+			    // Windows or Mac – don’t add Linux-only args
+			    options.addArguments("--start-maximized");
+			}
 			driverInstance = new ChromeDriver(options);
 			break;
 		case "edge":

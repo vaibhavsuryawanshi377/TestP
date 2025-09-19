@@ -18,6 +18,7 @@ public class ListenerSetup implements ITestListener {
 	@Override
 	public void onTestFailure(ITestResult result) {
 		System.out.println("Test Failed: "+result.getMethod().getMethodName());
+		
 	}
 	@Override
 	public void onTestSkipped(ITestResult result) {
