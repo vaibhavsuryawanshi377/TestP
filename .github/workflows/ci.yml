@@ -23,23 +23,17 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      # Step 3: Install specific Chrome version (139)
-      - name: Install Chrome 139
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wget unzip
-          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O chrome.deb
-          sudo dpkg -i chrome.deb || sudo apt-get -f install -y
-          google-chrome --version
+      # Step 3: Set up Chrome (compatible with Selenium 4.35)
+      - name: Set up Chrome
+        uses: browser-actions/setup-chrome@v3
+        with:
+          chrome-version: '139.0.0'   # Pick version supported by Selenium
 
-      # Step 4: Install matching ChromeDriver
-      - name: Install ChromeDriver 139
-        run: |
-          CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+')
-          wget https://chromedriver.storage.googleapis.com/$CHROME_VERSION/chromedriver_linux64.zip
-          unzip chromedriver_linux64.zip
-          sudo mv chromedriver /usr/local/bin/
-          chromedriver --version
+      # Step 4: Set up ChromeDriver (matching Chrome)
+      - name: Set up ChromeDriver
+        uses: browser-actions/setup-chromedriver@v2
+        with:
+          chromedriver-version: '139.0.0'
 
       # Step 5: Build and run tests
       - name: Build with Maven
