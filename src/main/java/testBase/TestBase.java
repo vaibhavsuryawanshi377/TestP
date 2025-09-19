@@ -4,6 +4,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -18,7 +19,21 @@ public class TestBase {
 
 		switch (browser.toLowerCase()) {
 		case "chrome":
-			driverInstance = new ChromeDriver();
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("--remote-allow-origins=*");
+
+			String os = System.getProperty("os.name").toLowerCase();
+			if (os.contains("linux")) {
+			    options.addArguments("--headless=new");
+			    options.addArguments("--no-sandbox");
+			    options.addArguments("--disable-dev-shm-usage");
+			    options.addArguments("--disable-gpu");
+			    options.addArguments("--user-data-dir=/tmp/chrome-profile");
+			} else {
+			    // Windows or Mac – don’t add Linux-only args
+			    options.addArguments("--start-maximized");
+			}
+			driverInstance = new ChromeDriver(options);
 			break;
 		case "edge":
 			driverInstance = new EdgeDriver();
