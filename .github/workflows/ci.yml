@@ -1,4 +1,4 @@
-name: Java CI with Maven
+name: Java CI with Maven (Chrome & Edge)
 
 on:
   push:
@@ -8,7 +8,11 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        browser: [chrome, edge]   # 👈 run on both browsers
+        os: [windows-latest]      # Edge only works on Windows runner
 
     steps:
       # Step 1: Checkout code
@@ -23,18 +27,20 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      # Step 3: Set up a specific Chrome version
-      - name: Set up Chrome 139
-        uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: '139'
-
-      # Step 4: Set up matching ChromeDriver
-      - name: Set up ChromeDriver for Chrome 139
+      # Step 3: Set up Chrome (only if matrix.browser == chrome)
+      - name: Set up ChromeDriver
+        if: matrix.browser == 'chrome'
         uses: browser-actions/setup-chromedriver@v1
         with:
-          chromedriver-version: '139'
+          chromedriver-version: latest
 
-      # Step 5: Build and run tests
-      - name: Build with Maven
-        run: mvn -B clean test
+      # Step 4: Set up Edge (only if matrix.browser == edge)
+      - name: Set up EdgeDriver
+        if: matrix.browser == 'edge'
+        uses: browser-actions/setup-edgedriver@v1
+        with:
+          edgedriver-version: latest
+
+      # Step 5: Run tests with Maven, passing browser parameter
+      - name: Run tests on ${{ matrix.browser }}
+        run: mvn -B clean test -Dbrowser=${{ matrix.browser }}
