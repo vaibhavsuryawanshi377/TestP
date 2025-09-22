@@ -5,7 +5,7 @@
 		<listener class-name="utility.ListenerSetup" />
 	</listeners>
 	<test name="RegressionTest">
-		<parameter name="browser" value="edge" />
+		<parameter name="browser" value="chrome" />
 		<classes>
 			<class name="testLayer.TestClass1" />
 			<class name="testLayer.TestClass2" />

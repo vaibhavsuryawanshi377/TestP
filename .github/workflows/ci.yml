@@ -1,10 +1,18 @@
+name: Java CI - Browser from TestNG
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        browser: [chrome, edge]
-        os: [windows-latest]
+    runs-on: windows-latest
+
+    env:
+      CHROME_VERSION: "139"
+      EDGE_VERSION: "139"
 
     steps:
       - name: Checkout repository
@@ -17,17 +25,27 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: Read browser from testng.xml
+        id: get_browser
+        shell: pwsh
+        run: |
+          [xml]$xml = Get-Content testng.xml
+          $browser = $xml.suite.parameter | Where-Object { $_.name -eq 'browser' } | Select-Object -ExpandProperty value
+          Write-Host "Browser detected: $browser"
+          echo "browser=$browser" >> $env:GITHUB_ENV
+
       - name: Set up ChromeDriver
-        if: matrix.browser == 'chrome'
-        uses: actions/setup-chromedriver@v2
+        if: ${{ env.browser == 'chrome' }}
+        uses: browser-actions/setup-chrome@v2
         with:
-          chromedriver-version: latest
+          chrome-version: ${{ env.CHROME_VERSION }}
+          install-chromedriver: true
 
       - name: Set up EdgeDriver
-        if: matrix.browser == 'edge'
-        uses: actions/setup-edgedriver@v1
+        if: ${{ env.browser == 'edge' }}
+        uses: microsoft/setup-msedge-driver@v1
         with:
-          edgedriver-version: latest
+          edge-version: ${{ env.EDGE_VERSION }}
 
-      - name: Run tests on ${{ matrix.browser }}
-        run: mvn -B clean test -Dbrowser=${{ matrix.browser }}
+      - name: Run tests on ${{ env.browser }}
+        run: mvn -B clean test -Dbrowser=${{ env.browser }} -DsuiteXmlFile=testng.xml
