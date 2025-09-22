@@ -16,71 +16,41 @@ public class TestClass1 extends TestBase {
 	
 	@Test
 	public void testMethod1() throws InterruptedException {
-		Thread.sleep(3000);
 		WebDriver testDriver = DriverManager.getDriver();
-		Thread.sleep(1500);
 		testDriver.findElement(By.xpath("//a[contains(text(),'Login')]")).click();
-		Thread.sleep(1500);
 		testDriver.findElement(By.xpath("//input[@name='emailPhone']")).sendKeys("admin@teknobuilt.com");
-		Thread.sleep(1500);
 		testDriver.findElement(By.xpath("//input[@name='password']")).sendKeys("u5s3[CY1T$i=");
-		Thread.sleep(1500);
 		testDriver.findElement(By.xpath("//button[normalize-space()='Login']")).click();
-		Thread.sleep(1500);
 		WebDriverWait wait = new WebDriverWait(testDriver, Duration.ofSeconds(20));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[normalize-space()='Select area and sub-area in the project']")));
-		Thread.sleep(1500);
 		testDriver.findElement(By.xpath("//p[normalize-space()='CLU']")).click();
-		Thread.sleep(1500);
 		testDriver.findElement(By.xpath("//p[normalize-space()='Common Area']")).click();
-		Thread.sleep(1500);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[normalize-space()='Advanced Project Engineering']")));
-		Thread.sleep(1500);
 		testDriver.findElement(By.xpath("//button[@aria-label='Menu']")).click();
-		Thread.sleep(1500);
 		testDriver.findElement(By.xpath("//span[normalize-space()='Departments']")).click();
-		Thread.sleep(1500);
 		testDriver.findElement(By.xpath("//button[@aria-label='Search']")).click();
-		Thread.sleep(1500);
 		testDriver.findElement(By.xpath("//input[@aria-label=\"Search\"]")).sendKeys("Design Department");
-		Thread.sleep(3000);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'1-1 of 1')]")));
-		Thread.sleep(1500);
 				
 		
 	}
 	@Test
 	public void testMethod11() throws InterruptedException {
-		Thread.sleep(3000);
 		WebDriver testDriver = DriverManager.getDriver();
-		Thread.sleep(1500);
 		testDriver.findElement(By.xpath("//a[contains(text(),'Login')]")).click();
-		Thread.sleep(1500);
 		testDriver.findElement(By.xpath("//input[@name='emailPhone']")).sendKeys("admin@teknobuilt.com");
-		Thread.sleep(1500);
 		testDriver.findElement(By.xpath("//input[@name='password']")).sendKeys("u5s3[CY1T$i=");
-		Thread.sleep(1500);
 		testDriver.findElement(By.xpath("//button[normalize-space()='Login']")).click();
-		Thread.sleep(1500);
 		WebDriverWait wait = new WebDriverWait(testDriver, Duration.ofSeconds(20));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[normalize-space()='Select area and sub-area in the project']")));
-		Thread.sleep(1500);
 		testDriver.findElement(By.xpath("//p[normalize-space()='CLU']")).click();
-		Thread.sleep(1500);
 		testDriver.findElement(By.xpath("//p[normalize-space()='Common Area']")).click();
-		Thread.sleep(1500);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[normalize-space()='Advanced Project Engineering']")));
-		Thread.sleep(1500);
 		testDriver.findElement(By.xpath("//button[@aria-label='Menu']")).click();
-		Thread.sleep(1500);
 		testDriver.findElement(By.xpath("//span[normalize-space()='Departments']")).click();
-		Thread.sleep(1500);
 		testDriver.findElement(By.xpath("//button[@aria-label='Search']")).click();
-		Thread.sleep(1500);
 		testDriver.findElement(By.xpath("//input[@aria-label=\"Search\"]")).sendKeys("Design Department");
-		Thread.sleep(3000);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'1-1 of 1')]")));
-		Thread.sleep(1500);
 				
 		
 	}
