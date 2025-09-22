@@ -10,17 +10,14 @@ jobs:
   build:
     runs-on: windows-latest
 
-    # Hardcode browser versions here
     env:
       CHROME_VERSION: "139"
       EDGE_VERSION: "139"
 
     steps:
-      # Step 1: Checkout code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Step 2: Set up JDK 17
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -28,7 +25,6 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      # Step 3: Read browser name from testng.xml
       - name: Read browser from testng.xml
         id: get_browser
         shell: pwsh
@@ -38,7 +34,6 @@ jobs:
           Write-Host "Browser detected: $browser"
           echo "browser=$browser" >> $env:GITHUB_ENV
 
-      # Step 4: Set up ChromeDriver if browser is Chrome
       - name: Set up ChromeDriver
         if: ${{ env.browser == 'chrome' }}
         uses: browser-actions/setup-chrome@v2
@@ -46,13 +41,11 @@ jobs:
           chrome-version: ${{ env.CHROME_VERSION }}
           install-chromedriver: true
 
-      # Step 5: Set up EdgeDriver if browser is Edge
       - name: Set up EdgeDriver
         if: ${{ env.browser == 'edge' }}
-        uses: browser-actions/setup-edgedriver@v1
+        uses: microsoft/setup-msedge-driver@v1
         with:
-          edgedriver-version: ${{ env.EDGE_VERSION }}
+          edge-version: ${{ env.EDGE_VERSION }}
 
-      # Step 6: Run Maven tests
       - name: Run tests on ${{ env.browser }}
         run: mvn -B clean test -Dbrowser=${{ env.browser }} -DsuiteXmlFile=testng.xml
