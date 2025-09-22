@@ -48,7 +48,7 @@ public class TestBase {
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		driver.manage().deleteAllCookies();
-		driver.get("https://www.flipkart.com");
+		driver.get("https://dev-company3.pace-os.com/");
 	}
 
 	@AfterMethod

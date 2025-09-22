@@ -5,24 +5,15 @@
     <listener class-name="utility.ListenerSetup"/>
   </listeners>
   <test thread-count="5" parallel="methods" name="RegressionTest(failed)">
-    <parameter name="browser" value="chrome"/>
+    <parameter name="browser" value="edge"/>
     <classes>
       <class name="testLayer.TestClass1">
         <methods>
           <include name="setUp"/>
           <include name="tearDown"/>
-          <include name="testMethod2"/>
           <include name="testMethod1"/>
         </methods>
       </class> <!-- testLayer.TestClass1 -->
-      <class name="testLayer.TestClass2">
-        <methods>
-          <include name="setUp"/>
-          <include name="testMethod4"/>
-          <include name="tearDown"/>
-          <include name="testMethod3"/>
-        </methods>
-      </class> <!-- testLayer.TestClass2 -->
     </classes>
   </test> <!-- RegressionTest(failed) -->
 </suite> <!-- Failed suite [AutomationSuite] -->
