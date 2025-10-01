@@ -54,10 +54,11 @@ jobs:
           install-edgedriver: true
 
       - name: Run tests on ${{ env.browser }}
-        run: mvn -B clean test \
-          -Dbrowser=${{ env.browser }} \
-          -DbrowserVersion=${{ env.browserVersion }} \
-          -Dos=${{ env.os }} \
-          -DosVersion=${{ env.osVersion }} \
-          -Dbrowserstack=${{ env.browserstack }} \
-          -DsuiteXmlFile=testng.xml
+        run: |
+          mvn -B clean test `
+            -Dbrowser=${{ env.browser }} `
+            -DbrowserVersion=${{ env.browserVersion }} `
+            -Dos=${{ env.os }} `
+            -DosVersion=${{ env.osVersion }} `
+            -Dbrowserstack=${{ env.browserstack }} `
+            -DsuiteXmlFile=testng.xml
