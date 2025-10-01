@@ -16,25 +16,28 @@ public class TestClass1 extends TestBase {
 	
 	@Test
 	public void testMethod1() throws InterruptedException {
+//		WebDriver testDriver = DriverManager.getDriver();
+//		testDriver.findElement(By.xpath("//a[contains(text(),'Login')]")).click();
+//		testDriver.findElement(By.xpath("//input[@name='emailPhone']")).sendKeys("admin@teknobuilt.com");
+//		testDriver.findElement(By.xpath("//input[@name='password']")).sendKeys("u5s3[CY1T$i=");
+//		testDriver.findElement(By.xpath("//button[normalize-space()='Login']")).click();
+//		WebDriverWait wait = new WebDriverWait(testDriver, Duration.ofSeconds(20));
+//		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[normalize-space()='Select area and sub-area in the project']")));
+//		testDriver.findElement(By.xpath("//p[normalize-space()='CLU']")).click();
+//		testDriver.findElement(By.xpath("//p[normalize-space()='Common Area']")).click();
+//		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[normalize-space()='Advanced Project Engineering']")));
+//		testDriver.findElement(By.xpath("//button[@aria-label='Menu']")).click();
+//		testDriver.findElement(By.xpath("//span[normalize-space()='Departments']")).click();
+//		testDriver.findElement(By.xpath("//button[@aria-label='Search']")).click();
+//		testDriver.findElement(By.xpath("//input[@aria-label=\"Search\"]")).sendKeys("Design Department");
+//		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'1-1 of 1')]")));
 		WebDriver testDriver = DriverManager.getDriver();
-		testDriver.findElement(By.xpath("//a[contains(text(),'Login')]")).click();
-		testDriver.findElement(By.xpath("//input[@name='emailPhone']")).sendKeys("admin@teknobuilt.com");
-		testDriver.findElement(By.xpath("//input[@name='password']")).sendKeys("u5s3[CY1T$i=");
-		testDriver.findElement(By.xpath("//button[normalize-space()='Login']")).click();
-		WebDriverWait wait = new WebDriverWait(testDriver, Duration.ofSeconds(20));
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[normalize-space()='Select area and sub-area in the project']")));
-		testDriver.findElement(By.xpath("//p[normalize-space()='CLU']")).click();
-		testDriver.findElement(By.xpath("//p[normalize-space()='Common Area']")).click();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[normalize-space()='Advanced Project Engineering']")));
-		testDriver.findElement(By.xpath("//button[@aria-label='Menu']")).click();
-		testDriver.findElement(By.xpath("//span[normalize-space()='Departments']")).click();
-		testDriver.findElement(By.xpath("//button[@aria-label='Search']")).click();
-		testDriver.findElement(By.xpath("//input[@aria-label=\"Search\"]")).sendKeys("Design Department");
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'1-1 of 1')]")));
+		System.out.println("===============/////////////////"+testDriver.getTitle());;
+
 				
 		//tttttt
 	}
-	@Test
+	//@Test
 	public void testMethod11() throws InterruptedException {
 		WebDriver testDriver = DriverManager.getDriver();
 		testDriver.findElement(By.xpath("//a[contains(text(),'Login')]")).click();
