@@ -1,18 +1,16 @@
-name: Java CI - Browser from TestNG
+name: Java CI - TestNG Selenium
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  repository_dispatch:
+    types: [run-selenium-tests]
 
 jobs:
-  build:
+  test:
     runs-on: windows-latest
-
-    env:
-      CHROME_VERSION: "139"
-      EDGE_VERSION: "139"
 
     steps:
       - name: Checkout repository
@@ -25,27 +23,34 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Read browser from testng.xml
-        id: get_browser
+      - name: Read parameters from testng.xml
+        id: read_params
         shell: pwsh
         run: |
           [xml]$xml = Get-Content testng.xml
-          $browser = $xml.suite.parameter | Where-Object { $_.name -eq 'browser' } | Select-Object -ExpandProperty value
-          Write-Host "Browser detected: $browser"
-          echo "browser=$browser" >> $env:GITHUB_ENV
+          foreach ($param in $xml.suite.parameter) {
+            echo "$($param.name)=$($param.value)" >> $env:GITHUB_ENV
+          }
 
       - name: Set up ChromeDriver
-        if: ${{ env.browser == 'chrome' }}
+        if: ${{ env.browser -eq 'chrome' }}
         uses: browser-actions/setup-chrome@v2
         with:
-          chrome-version: ${{ env.CHROME_VERSION }}
+          chrome-version: ${{ env.browserVersion }}
           install-chromedriver: true
 
       - name: Set up EdgeDriver
-        if: ${{ env.browser == 'edge' }}
+        if: ${{ env.browser -eq 'edge' }}
         uses: microsoft/setup-msedge-driver@v1
         with:
-          edge-version: ${{ env.EDGE_VERSION }}
+          edge-version: ${{ env.browserVersion }}
 
-      - name: Run tests on ${{ env.browser }}
-        run: mvn -B clean test -Dbrowser=${{ env.browser }} -DsuiteXmlFile=testng.xml
+      - name: Run Selenium tests
+        run: |
+          mvn -B clean test \
+            -Dbrowser=${{ env.browser }} \
+            -Dbrowserstack=${{ env.browserstack }} \
+            -DbrowserVersion=${{ env.browserVersion }} \
+            -Dos=${{ env.os }} \
+            -DosVersion=${{ env.osVersion }} \
+            -DsuiteXmlFile=testng.xml
