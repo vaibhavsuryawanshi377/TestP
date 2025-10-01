@@ -1,12 +1,10 @@
-name: Java CI - Selenium TestNG
+name: Java CI - Browser from TestNG
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-  repository_dispatch:   # Allows Jenkins to trigger workflow
-    types: [run-selenium-tests]
 
 jobs:
   build:
@@ -16,28 +14,30 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up JDK 21
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
+          java-version: '17'
           distribution: 'temurin'
           cache: maven
 
       - name: Read parameters from testng.xml
-        id: read_params
+        id: get_params
         shell: pwsh
         run: |
           [xml]$xml = Get-Content testng.xml
-          $params = @{}
-          foreach ($p in $xml.suite.parameter) {
-            $params[$p.name] = $p.value
-          }
-          Write-Host "Parameters loaded: $params"
-          echo "browserstack=$($params['browserstack'])" >> $env:GITHUB_ENV
-          echo "browser=$($params['browser'])" >> $env:GITHUB_ENV
-          echo "browserVersion=$($params['browserVersion'])" >> $env:GITHUB_ENV
-          echo "os=$($params['os'])" >> $env:GITHUB_ENV
-          echo "osVersion=$($params['osVersion'])" >> $env:GITHUB_ENV
+
+          $browser = $xml.suite.parameter | Where-Object { $_.name -eq 'browser' } | Select-Object -ExpandProperty value
+          $browserVersion = $xml.suite.parameter | Where-Object { $_.name -eq 'browserVersion' } | Select-Object -ExpandProperty value
+          $os = $xml.suite.parameter | Where-Object { $_.name -eq 'os' } | Select-Object -ExpandProperty value
+          $osVersion = $xml.suite.parameter | Where-Object { $_.name -eq 'osVersion' } | Select-Object -ExpandProperty value
+          $browserstack = $xml.suite.parameter | Where-Object { $_.name -eq 'browserstack' } | Select-Object -ExpandProperty value
+
+          echo "browser=$browser" >> $env:GITHUB_ENV
+          echo "browserVersion=$browserVersion" >> $env:GITHUB_ENV
+          echo "os=$os" >> $env:GITHUB_ENV
+          echo "osVersion=$osVersion" >> $env:GITHUB_ENV
+          echo "browserstack=$browserstack" >> $env:GITHUB_ENV
 
       - name: Set up ChromeDriver
         if: ${{ env.browser == 'chrome' && env.browserstack == 'false' }}
@@ -53,10 +53,11 @@ jobs:
           edge-version: ${{ env.browserVersion }}
           install-edgedriver: true
 
-      - name: Run Selenium TestNG tests
-        run: mvn -B clean test -DsuiteXmlFile=testng.xml \
-             -Dbrowser=${{ env.browser }} \
-             -Dbrowserstack=${{ env.browserstack }} \
-             -DbrowserVersion=${{ env.browserVersion }} \
-             -Dos=${{ env.os }} \
-             -DosVersion=${{ env.osVersion }}
+      - name: Run tests on ${{ env.browser }}
+        run: mvn -B clean test \
+          -Dbrowser=${{ env.browser }} \
+          -DbrowserVersion=${{ env.browserVersion }} \
+          -Dos=${{ env.os }} \
+          -DosVersion=${{ env.osVersion }} \
+          -Dbrowserstack=${{ env.browserstack }} \
+          -DsuiteXmlFile=testng.xml
