@@ -32,7 +32,7 @@
     </test>-->
 
     <test name="BrowserStack Edge Win11">
-        <parameter name="browserstack" value="true"/>
+        <parameter name="browserstack" value="false"/>
         <parameter name="browser" value="chrome"/>
         <parameter name="browserVersion" value="120"/>
         <parameter name="os" value="Windows"/>
