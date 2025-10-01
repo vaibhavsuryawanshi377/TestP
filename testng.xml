@@ -34,7 +34,7 @@
     <test name="BrowserStack Edge Win11">
         <parameter name="browserstack" value="false"/>
         <parameter name="browser" value="chrome"/>
-        <parameter name="browserVersion" value="120"/>
+        <parameter name="browserVersion" value="136"/>
         <parameter name="os" value="Windows"/>
         <parameter name="osVersion" value="11"/>
         <classes>
