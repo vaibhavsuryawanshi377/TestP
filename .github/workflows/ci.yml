@@ -48,7 +48,7 @@ jobs:
 
       - name: Set up EdgeDriver
         if: ${{ env.browser == 'edge' && env.browserstack == 'false' }}
-        uses: browser-actions/setup-edge@v2
+        uses: browser-actions/setup-edge@v1
         with:
           edge-version: ${{ env.browserVersion }}
           install-edgedriver: true
