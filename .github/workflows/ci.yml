@@ -1,10 +1,12 @@
 name: Java CI - Browser from TestNG
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  # push:
+  #   branches: [ "main" ]
+  # pull_request:
+  #   branches: [ "main" ]
+  repository_dispatch:
+    types: [run-selenium-tests]
 
 jobs:
   build:
@@ -33,11 +35,11 @@ jobs:
           $osVersion = $xml.suite.parameter | Where-Object { $_.name -eq 'osVersion' } | Select-Object -ExpandProperty value
           $browserstack = $xml.suite.parameter | Where-Object { $_.name -eq 'browserstack' } | Select-Object -ExpandProperty value
 
-          echo "browser=$browser" >> $env:GITHUB_ENV
-          echo "browserVersion=$browserVersion" >> $env:GITHUB_ENV
-          echo "os=$os" >> $env:GITHUB_ENV
-          echo "osVersion=$osVersion" >> $env:GITHUB_ENV
-          echo "browserstack=$browserstack" >> $env:GITHUB_ENV
+          Add-Content -Path $env:GITHUB_ENV -Value "browser=$browser"
+          Add-Content -Path $env:GITHUB_ENV -Value "browserVersion=$browserVersion"
+          Add-Content -Path $env:GITHUB_ENV -Value "os=$os"
+          Add-Content -Path $env:GITHUB_ENV -Value "osVersion=$osVersion"
+          Add-Content -Path $env:GITHUB_ENV -Value "browserstack=$browserstack"
 
       - name: Set up ChromeDriver
         if: ${{ env.browser == 'chrome' && env.browserstack == 'false' }}
