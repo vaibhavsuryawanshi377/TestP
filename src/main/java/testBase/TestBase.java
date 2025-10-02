@@ -20,29 +20,29 @@ public class TestBase {
     @Parameters({ "browserstack", "browser", "browserVersion", "os", "osVersion" })
     @BeforeMethod
     public void setUp(
-            String browserstack,
-            String browser,
-            @Optional("") String browserVersion,
-            @Optional("") String os,
-            @Optional("") String osVersion) throws MalformedURLException {
+            @Optional("false") String browserstack,
+            @Optional("chrome") String browser,
+            @Optional("latest") String browserVersion,
+            @Optional("Windows") String os,
+            @Optional("11") String osVersion) throws MalformedURLException {
 
         WebDriver driverInstance;
 
+        // Determine if we are using BrowserStack
         if (Boolean.parseBoolean(browserstack)) {
-            // BrowserStack remote setup
-            String bsUser = "vaibhavs_0ZSQVa";
-            String bsKey = "smycf4qcj3sUTytqCaSV";
+
+            // Use environment variables for security
+            String bsUser = System.getenv("BROWSERSTACK_USER");
+            String bsKey = System.getenv("BROWSERSTACK_KEY");
             String bsUrl = "https://" + bsUser + ":" + bsKey + "@hub-cloud.browserstack.com/wd/hub";
 
-            // Top-level capabilities
             MutableCapabilities caps = new MutableCapabilities();
-            caps.setCapability("browserName", browser.isEmpty() ? "chrome" : browser);
-            caps.setCapability("browserVersion", browserVersion.isEmpty() ? "latest" : browserVersion);
+            caps.setCapability("browserName", browser);
+            caps.setCapability("browserVersion", browserVersion);
 
-            // BrowserStack-specific options
             MutableCapabilities bstackOptions = new MutableCapabilities();
-            bstackOptions.setCapability("os", os.isEmpty() ? "Windows" : os);
-            bstackOptions.setCapability("osVersion", osVersion.isEmpty() ? "11" : osVersion);
+            bstackOptions.setCapability("os", os);
+            bstackOptions.setCapability("osVersion", osVersion);
             bstackOptions.setCapability("projectName", "My Project");
             bstackOptions.setCapability("buildName", "Build 1");
             bstackOptions.setCapability("sessionName", "Test Session");
@@ -52,12 +52,15 @@ public class TestBase {
             driverInstance = new RemoteWebDriver(new URL(bsUrl), caps);
 
         } else {
-            // Local setup
-            switch (browser.toLowerCase()) {
+            // Local setup with default safe browser
+            String selectedBrowser = (browser == null || browser.isEmpty()) ? "chrome" : browser.toLowerCase();
+
+            switch (selectedBrowser) {
                 case "chrome":
                     ChromeOptions chromeOptions = new ChromeOptions();
                     chromeOptions.addArguments("--remote-allow-origins=*");
 
+                    // Headless if running on CI Linux
                     String osName = System.getProperty("os.name").toLowerCase();
                     if (osName.contains("linux")) {
                         chromeOptions.addArguments("--headless=new");
@@ -77,20 +80,20 @@ public class TestBase {
                     break;
 
                 default:
-                    throw new IllegalArgumentException("Invalid browser: " + browser);
+                    throw new IllegalArgumentException("Invalid browser: " + selectedBrowser);
             }
         }
 
-        // Set WebDriver in DriverManager
+        // Store WebDriver in DriverManager
         DriverManager.setDriver(driverInstance);
 
-        // Common configurations
+        // Common driver configurations
         WebDriver driver = DriverManager.getDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         driver.manage().deleteAllCookies();
 
-        // Open application URL
+        // Open application
         driver.get("https://www.google.com/");
     }
 
