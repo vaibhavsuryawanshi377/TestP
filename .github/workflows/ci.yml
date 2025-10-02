@@ -64,4 +64,4 @@ jobs:
             -Dos=$env:os `
             -DosVersion=$env:osVersion `
             -Dbrowserstack=$env:browserstack `
-            -DsuiteXmlFile=testng.xml
+            -DsuiteXmlFile="testng.xml"
