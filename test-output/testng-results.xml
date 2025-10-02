@@ -2,12 +2,12 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-10-02T03:07:49 IST" name="Automation Suite" finished-at="2025-10-02T03:07:58 IST" duration-ms="9609">
+  <suite started-at="2025-10-02T12:47:39 IST" name="TestP Suite" finished-at="2025-10-02T12:47:48 IST" duration-ms="8704">
     <groups>
     </groups>
-    <test started-at="2025-10-02T03:07:49 IST" name="DynamicBrowserTest" finished-at="2025-10-02T03:07:58 IST" duration-ms="9609">
+    <test started-at="2025-10-02T12:47:39 IST" name="Local Chrome" finished-at="2025-10-02T12:47:48 IST" duration-ms="8704">
       <class name="testLayer.TestClass1">
-        <test-method is-config="true" signature="setUp(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:testLayer.TestClass1@2f4948e4]" started-at="2025-10-02T03:07:49 IST" name="setUp" finished-at="2025-10-02T03:07:58 IST" duration-ms="9347" status="PASS">
+        <test-method is-config="true" signature="setUp(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:testLayer.TestClass1@6a78afa0]" started-at="2025-10-02T12:47:39 IST" name="setUp" finished-at="2025-10-02T12:47:48 IST" duration-ms="8180" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -21,32 +21,32 @@
             </param>
             <param index="2">
               <value>
-                <![CDATA[139]]>
+                <![CDATA[]]>
               </value>
             </param>
             <param index="3">
               <value>
-                <![CDATA[Windows]]>
+                <![CDATA[]]>
               </value>
             </param>
             <param index="4">
               <value>
-                <![CDATA[11]]>
+                <![CDATA[]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testMethod1()[pri:0, instance:testLayer.TestClass1@2f4948e4]" started-at="2025-10-02T03:07:58 IST" name="testMethod1" finished-at="2025-10-02T03:07:58 IST" duration-ms="26" status="PASS">
+        <test-method signature="testMethod1()[pri:0, instance:testLayer.TestClass1@6a78afa0]" started-at="2025-10-02T12:47:48 IST" name="testMethod1" finished-at="2025-10-02T12:47:48 IST" duration-ms="45" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testMethod1 -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:testLayer.TestClass1@2f4948e4]" started-at="2025-10-02T03:07:58 IST" name="tearDown" finished-at="2025-10-02T03:07:58 IST" duration-ms="185" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:testLayer.TestClass1@6a78afa0]" started-at="2025-10-02T12:47:48 IST" name="tearDown" finished-at="2025-10-02T12:47:48 IST" duration-ms="376" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
       </class> <!-- testLayer.TestClass1 -->
-    </test> <!-- DynamicBrowserTest -->
-  </suite> <!-- Automation Suite -->
+    </test> <!-- Local Chrome -->
+  </suite> <!-- TestP Suite -->
 </testng-results>
