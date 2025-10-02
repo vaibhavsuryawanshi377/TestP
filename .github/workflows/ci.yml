@@ -1,10 +1,6 @@
 name: Java CI - Browser from TestNG
 
 on:
-  # push:
-  #   branches: [ "main" ]
-  # pull_request:
-  #   branches: [ "main" ]
   repository_dispatch:
     types: [run-selenium-tests]
 
@@ -59,9 +55,9 @@ jobs:
         shell: pwsh
         run: |
           mvn -B clean test `
-            -Dbrowser=${env:browser} `
-            -DbrowserVersion=${env:browserVersion} `
-            -Dos=${env:os} `
-            -DosVersion=${env:osVersion} `
-            -Dbrowserstack=${env:browserstack} `
+            -Dbrowser=${{ env.browser }} `
+            -DbrowserVersion=${{ env.browserVersion }} `
+            -Dos=${{ env.os }} `
+            -DosVersion=${{ env.osVersion }} `
+            -Dbrowserstack=${{ env.browserstack }} `
             -DsuiteXmlFile="testng.xml"
