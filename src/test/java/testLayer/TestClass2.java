@@ -10,9 +10,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 import testBase.DriverManager;
-import testBase.TestBase;
+import testBase.TestBase2;
 
-public class TestClass2 extends TestBase {
+public class TestClass2 extends TestBase2 {
 	
 	@Test
 	public void testMethod12() throws InterruptedException {
