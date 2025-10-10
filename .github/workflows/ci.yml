@@ -73,8 +73,9 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-report
+          name: target/allure-report
           path: target/site/allure-maven-plugin/
+          
 
       # ✅ Archive TestNG reports
       - name: Archive TestNG reports
