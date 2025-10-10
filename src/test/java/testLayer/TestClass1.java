@@ -48,7 +48,7 @@ public class TestClass1 extends TestBase {
 	@Test
 	public void testMethod3() throws InterruptedException {
 		LocalDateTime dt = LocalDateTime.now();
-		System.out.println("Method2 started--"+dt.format( DateTimeFormatter.ofPattern("hh:mm:ss")));
+		System.out.println("Method3 started--"+dt.format( DateTimeFormatter.ofPattern("hh:mm:ss")));
 		//Thread.sleep(60000);
 		WebDriver testDriver = DriverManager.getDriver();
 		testDriver.findElement(By.xpath("//input[@placeholder='Search for Products, Brands and More']")).click();
@@ -62,7 +62,7 @@ public class TestClass1 extends TestBase {
 	@Test
 	public void testMethod4() throws InterruptedException {
 		LocalDateTime dt = LocalDateTime.now();
-		System.out.println("Method2 started--"+dt.format( DateTimeFormatter.ofPattern("hh:mm:ss")));
+		System.out.println("Method4 started--"+dt.format( DateTimeFormatter.ofPattern("hh:mm:ss")));
 		//Thread.sleep(60000);
 		WebDriver testDriver = DriverManager.getDriver();
 		testDriver.findElement(By.xpath("//input[@placeholder='Sffearch for Products, Brands and More']")).click();
