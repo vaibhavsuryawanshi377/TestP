@@ -19,24 +19,23 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      # ✅ Read parameters dynamically from testng.xml
       - name: Read parameters from testng.xml
         id: get_params
         shell: pwsh
         run: |
           [xml]$xml = Get-Content testng.xml
 
-          $browser = $xml.suite.parameter | Where-Object { $_.name -eq 'browser' } | Select-Object -ExpandProperty value
-          $browserVersion = $xml.suite.parameter | Where-Object { $_.name -eq 'browserVersion' } | Select-Object -ExpandProperty value
-          $os = $xml.suite.parameter | Where-Object { $_.name -eq 'os' } | Select-Object -ExpandProperty value
-          $osVersion = $xml.suite.parameter | Where-Object { $_.name -eq 'osVersion' } | Select-Object -ExpandProperty value
-          $browserstack = $xml.suite.parameter | Where-Object { $_.name -eq 'browserstack' } | Select-Object -ExpandProperty value
+          $params = @{}
+          foreach ($p in $xml.suite.parameter) {
+            $params[$p.name] = $p.value
+          }
 
-          Add-Content -Path $env:GITHUB_ENV -Value "browser=$browser"
-          Add-Content -Path $env:GITHUB_ENV -Value "browserVersion=$browserVersion"
-          Add-Content -Path $env:GITHUB_ENV -Value "os=$os"
-          Add-Content -Path $env:GITHUB_ENV -Value "osVersion=$osVersion"
-          Add-Content -Path $env:GITHUB_ENV -Value "browserstack=$browserstack"
+          foreach ($key in $params.Keys) {
+            Add-Content -Path $env:GITHUB_ENV -Value "$key=$($params[$key])"
+          }
 
+      # ✅ Conditional Chrome setup
       - name: Set up ChromeDriver
         if: ${{ env.browser == 'chrome' && env.browserstack == 'false' }}
         uses: browser-actions/setup-chrome@v2
@@ -44,6 +43,7 @@ jobs:
           chrome-version: ${{ env.browserVersion }}
           install-chromedriver: true
 
+      # ✅ Conditional Edge setup
       - name: Set up EdgeDriver
         if: ${{ env.browser == 'edge' && env.browserstack == 'false' }}
         uses: browser-actions/setup-edge@v1
@@ -51,6 +51,7 @@ jobs:
           edge-version: ${{ env.browserVersion }}
           install-edgedriver: true
 
+      # ✅ Run tests with all parameters
       - name: Run tests on ${{ env.browser }}
         shell: pwsh
         run: |
@@ -61,3 +62,11 @@ jobs:
             -DosVersion=${{ env.osVersion }} `
             -Dbrowserstack=${{ env.browserstack }} `
             -DsuiteXmlFile="testng.xml"
+
+      # ✅ Optional: upload reports
+      - name: Archive TestNG reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: testng-reports
+          path: target/surefire-reports/
