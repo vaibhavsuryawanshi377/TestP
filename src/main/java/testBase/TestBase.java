@@ -36,7 +36,7 @@ public class TestBase {
             setCapability("os", os);
             setCapability("osVersion", osVersion);
             setCapability("projectName", "TestP");
-            setCapability("buildName", "Build-2");
+            setCapability("buildName", "Build-3");
             setCapability("sessionName", "Parallel Test Example");
         }});
 
