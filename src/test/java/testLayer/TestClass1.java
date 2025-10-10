@@ -16,22 +16,20 @@ import testBase.TestBase;
 
 public class TestClass1 extends TestBase {
 	
-	@Test
+	@Test(priority = 1)
 	public void testMethod1() throws InterruptedException {
 		LocalDateTime dt1 = LocalDateTime.now();
 		System.out.println("Method1 started--"+dt1.format( DateTimeFormatter.ofPattern("hh:mm:ss")));
-		Thread.sleep(60000);
-
-		//WebDriver testDriver = DriverManager.getDriver();
-		//testDriver.findElement(By.xpath("//input[@placeholder='Search for Products, Brands and More']")).click();
-		//testDriver.findElement(By.xpath("//input[@placeholder='Search for Products, Brands and More']")).sendKeys("iphone16"+Keys.ENTER);
-		//testDriver.findElement(By.xpath("//div[normalize-space()='Apple iPhone 16 (Black, 128 GB)']")).click();
-		//System.out.println("===============/////////////////"+testDriver.getTitle());
-		
+		//Thread.sleep(60000);
+		WebDriver testDriver = DriverManager.getDriver();
+		testDriver.findElement(By.xpath("//input[@placeholder='Search for Products, Brands and More']")).click();
+		testDriver.findElement(By.xpath("//input[@placeholder='Search for Products, Brands and More']")).sendKeys("iphone16"+Keys.ENTER);
+		testDriver.findElement(By.xpath("//div[normalize-space()='Apple iPhone 16 (Black, 128 GB)']")).click();
+		System.out.println("===============/////////////////"+testDriver.getTitle());
 		LocalDateTime dt2 = LocalDateTime.now();
 		System.out.println("Method1 End---"+dt2.format( DateTimeFormatter.ofPattern("hh:mm:ss")));
 	}
-	@Test
+	@Test(priority = 2)
 	public void testMethod2() throws InterruptedException {
 		LocalDateTime dt = LocalDateTime.now();
 		System.out.println("Method2 started--"+dt.format( DateTimeFormatter.ofPattern("hh:mm:ss")));
@@ -45,7 +43,7 @@ public class TestClass1 extends TestBase {
 		LocalDateTime dt2 = LocalDateTime.now();
 		System.out.println("Method2 End--"+dt2.format( DateTimeFormatter.ofPattern("hh:mm:ss")));
 	}
-	@Test
+	@Test(priority = 3)
 	public void testMethod3() throws InterruptedException {
 		LocalDateTime dt = LocalDateTime.now();
 		System.out.println("Method3 started--"+dt.format( DateTimeFormatter.ofPattern("hh:mm:ss")));
@@ -59,7 +57,7 @@ public class TestClass1 extends TestBase {
 		LocalDateTime dt2 = LocalDateTime.now();
 		System.out.println("Method3 End--"+dt2.format( DateTimeFormatter.ofPattern("hh:mm:ss")));
 	}
-	@Test
+	@Test(priority = 4)
 	public void testMethod4() throws InterruptedException {
 		LocalDateTime dt = LocalDateTime.now();
 		System.out.println("Method4 started--"+dt.format( DateTimeFormatter.ofPattern("hh:mm:ss")));
