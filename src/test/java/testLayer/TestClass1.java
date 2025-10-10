@@ -1,6 +1,8 @@
 package testLayer;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -16,21 +18,28 @@ public class TestClass1 extends TestBase {
 	
 	@Test
 	public void testMethod1() throws InterruptedException {
+		LocalDateTime dt = LocalDateTime.now();
+		System.out.println("Method1 started At"+dt.format( DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss")));
+		
 		WebDriver testDriver = DriverManager.getDriver();
 		testDriver.findElement(By.xpath("//input[@placeholder='Search for Products, Brands and More']")).click();
 		testDriver.findElement(By.xpath("//input[@placeholder='Search for Products, Brands and More']")).sendKeys("iphone16"+Keys.ENTER);
-		Thread.sleep(2000);
+		Thread.sleep(200000);
 		testDriver.findElement(By.xpath("//div[normalize-space()='Apple iPhone 16 (Black, 128 GB)']")).click();
 		System.out.println("===============/////////////////"+testDriver.getTitle());;	
+		System.out.println("Method1 End At"+dt.format( DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss")));
 	}
 	@Test
 	public void testMethod2() throws InterruptedException {
+		LocalDateTime dt = LocalDateTime.now();
+		System.out.println("Method2 started At"+dt.format( DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss")));
 		WebDriver testDriver = DriverManager.getDriver();
 		testDriver.findElement(By.xpath("//input[@placeholder='Search for Products, Brands and More']")).click();
 		testDriver.findElement(By.xpath("//input[@placeholder='Search for Products, Brands and More']")).sendKeys("iphone16"+Keys.ENTER);
-		Thread.sleep(2000);
+		Thread.sleep(200000);
 		testDriver.findElement(By.xpath("//div[normalize-space()='Apple iPhone 16 (Black, 128 GB)']")).click();
 		System.out.println("===============/////////////////"+testDriver.getTitle());;	
+		System.out.println("Method2 End At"+dt.format( DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss")));
 	}
 	//@Test
 	public void testMethod3() throws InterruptedException {

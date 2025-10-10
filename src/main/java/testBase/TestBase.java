@@ -9,11 +9,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 
 public class TestBase {
 
-    @BeforeMethod
-    public void setUp() throws MalformedURLException {
+	 @Parameters({ "browserstack", "browser", "browserVersion", "os", "osVersion" })
+	    @BeforeMethod
+	    public void setUp(
+	            @Optional("false") String browserstack,
+	            @Optional("chrome") String browser,
+	            @Optional("latest") String browserVersion,
+	            @Optional("Windows") String os,
+	            @Optional("11") String osVersion) throws MalformedURLException {
 
     	 // BrowserStack credentials
         String username = "vaibhavs_0ZSQVa";
@@ -22,12 +30,12 @@ public class TestBase {
 
         // Desired capabilities
         MutableCapabilities caps = new MutableCapabilities();
-        caps.setCapability("browserName", "Chrome");
-        caps.setCapability("browserVersion", "117.0");
+        caps.setCapability("browserName", browser);
+        caps.setCapability("browserVersion", browserVersion);
         caps.setCapability("bstack:options", new MutableCapabilities() {{
-            setCapability("os", "Windows");
-            setCapability("osVersion", "11");
-            setCapability("projectName", "My Selenium Project");
+            setCapability("os", os);
+            setCapability("osVersion", osVersion);
+            setCapability("projectName", "TestP");
             setCapability("buildName", "Build-1");
             setCapability("sessionName", "Parallel Test Example");
         }});
