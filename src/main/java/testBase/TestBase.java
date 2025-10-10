@@ -6,6 +6,9 @@ import java.time.Duration;
 
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -22,10 +25,13 @@ public class TestBase {
 	            @Optional("latest") String browserVersion,
 	            @Optional("Windows") String os,
 	            @Optional("11") String osVersion) throws MalformedURLException {
-
+		 
+		 WebDriver driverInstance;
+		 if(Boolean.parseBoolean(browserstack)) {
+			 
     	 // BrowserStack credentials
-        String username = "vaibhavs_0ZSQVa";
-        String accessKey = "smycf4qcj3sUTytqCaSV";
+        String username = "vaibhavsuryawans_Z05sin";
+        String accessKey = "pgfuK3NqJxeNvb66oyVb";
         String hubURL = "https://" + username + ":" + accessKey + "@hub-cloud.browserstack.com/wd/hub";
 
         // Desired capabilities
@@ -41,8 +47,41 @@ public class TestBase {
         }});
 
         // Create RemoteWebDriver instance
-        WebDriver driverInstance = new RemoteWebDriver(new URL(hubURL), caps);
-        DriverManager.setDriver(driverInstance);
+        driverInstance = new RemoteWebDriver(new URL(hubURL), caps);
+		 }
+		 else { 
+			 // Local setup with default safe browser
+		 }
+	            String selectedBrowser = (browser == null || browser.isEmpty()) ? "chrome" : browser.toLowerCase();
+
+	            switch (selectedBrowser) {
+	                case "chrome":
+	                    ChromeOptions chromeOptions = new ChromeOptions();
+	                    chromeOptions.addArguments("--remote-allow-origins=*");
+
+	                    // Headless if running on CI Linux
+	                    String osName = System.getProperty("os.name").toLowerCase();
+	                    if (osName.contains("linux")) {
+	                        chromeOptions.addArguments("--headless=new");
+	                        chromeOptions.addArguments("--no-sandbox");
+	                        chromeOptions.addArguments("--disable-dev-shm-usage");
+	                        chromeOptions.addArguments("--disable-gpu");
+	                        chromeOptions.addArguments("--user-data-dir=/tmp/chrome-profile");
+	                    } else {
+	                        chromeOptions.addArguments("--start-maximized");
+	                    }
+
+	                    driverInstance = new ChromeDriver(chromeOptions);
+	                    break;
+
+	                case "edge":
+	                    driverInstance = new EdgeDriver();
+	                    break;
+
+	                default:
+	                    throw new IllegalArgumentException("Invalid browser: " + selectedBrowser);
+	            }
+		 DriverManager.setDriver(driverInstance);
         WebDriver driver = DriverManager.getDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
