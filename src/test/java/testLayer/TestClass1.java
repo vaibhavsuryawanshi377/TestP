@@ -45,7 +45,7 @@ public class TestClass1 extends TestBase {
 	@Test
 	public void testMethod3() throws InterruptedException {
 		LocalDateTime dt = LocalDateTime.now();
-		System.out.println("Method2 started At"+dt.format( DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss")));
+		System.out.println("Method3 started At"+dt.format( DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss")));
 		Thread.sleep(10000);
 		//WebDriver testDriver = DriverManager.getDriver();
 		//testDriver.findElement(By.xpath("//input[@placeholder='Search for Products, Brands and More']")).click();
@@ -53,7 +53,7 @@ public class TestClass1 extends TestBase {
 		//testDriver.findElement(By.xpath("//div[normalize-space()='Apple iPhone 16 (Black, 128 GB)']")).click();
 		//System.out.println("===============/////////////////"+testDriver.getTitle());;	
 		//Thread.sleep(1000);
-		System.out.println("Method2 End At"+dt.format( DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss")));
+		System.out.println("Method3 End At"+dt.format( DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss")));
 	}
 	//@Test
 	public void testMethod31() throws InterruptedException {
