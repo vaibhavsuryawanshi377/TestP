@@ -5,7 +5,7 @@
 	<test name=" Chrome">
 		<parameter name="browserstack" value="true" />
 		<parameter name="browser" value="chrome" />
-		<parameter name="browserVersion" value="118.0" />
+		<parameter name="browserVersion" value="137.0" />
 		<parameter name="os" value="Windows" />
 		<parameter name="osVersion" value="11" />
 		<classes>
