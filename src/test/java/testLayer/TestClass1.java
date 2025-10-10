@@ -20,29 +20,43 @@ public class TestClass1 extends TestBase {
 	public void testMethod1() throws InterruptedException {
 		LocalDateTime dt = LocalDateTime.now();
 		System.out.println("Method1 started At"+dt.format( DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss")));
-		
-		WebDriver testDriver = DriverManager.getDriver();
-		testDriver.findElement(By.xpath("//input[@placeholder='Search for Products, Brands and More']")).click();
-		testDriver.findElement(By.xpath("//input[@placeholder='Search for Products, Brands and More']")).sendKeys("iphone16"+Keys.ENTER);
-		Thread.sleep(200000);
-		testDriver.findElement(By.xpath("//div[normalize-space()='Apple iPhone 16 (Black, 128 GB)']")).click();
-		System.out.println("===============/////////////////"+testDriver.getTitle());;	
+		Thread.sleep(10000);
+
+		//WebDriver testDriver = DriverManager.getDriver();
+		//testDriver.findElement(By.xpath("//input[@placeholder='Search for Products, Brands and More']")).click();
+		//testDriver.findElement(By.xpath("//input[@placeholder='Search for Products, Brands and More']")).sendKeys("iphone16"+Keys.ENTER);
+		//testDriver.findElement(By.xpath("//div[normalize-space()='Apple iPhone 16 (Black, 128 GB)']")).click();
+		//System.out.println("===============/////////////////"+testDriver.getTitle());;	
 		System.out.println("Method1 End At"+dt.format( DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss")));
 	}
 	@Test
 	public void testMethod2() throws InterruptedException {
 		LocalDateTime dt = LocalDateTime.now();
 		System.out.println("Method2 started At"+dt.format( DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss")));
-		WebDriver testDriver = DriverManager.getDriver();
-		testDriver.findElement(By.xpath("//input[@placeholder='Search for Products, Brands and More']")).click();
-		testDriver.findElement(By.xpath("//input[@placeholder='Search for Products, Brands and More']")).sendKeys("iphone16"+Keys.ENTER);
-		Thread.sleep(200000);
-		testDriver.findElement(By.xpath("//div[normalize-space()='Apple iPhone 16 (Black, 128 GB)']")).click();
-		System.out.println("===============/////////////////"+testDriver.getTitle());;	
+		Thread.sleep(10000);
+		//WebDriver testDriver = DriverManager.getDriver();
+		//testDriver.findElement(By.xpath("//input[@placeholder='Search for Products, Brands and More']")).click();
+		//testDriver.findElement(By.xpath("//input[@placeholder='Search for Products, Brands and More']")).sendKeys("iphone16"+Keys.ENTER);
+		//testDriver.findElement(By.xpath("//div[normalize-space()='Apple iPhone 16 (Black, 128 GB)']")).click();
+		//System.out.println("===============/////////////////"+testDriver.getTitle());;	
+		//Thread.sleep(1000);
+		System.out.println("Method2 End At"+dt.format( DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss")));
+	}
+	@Test
+	public void testMethod3() throws InterruptedException {
+		LocalDateTime dt = LocalDateTime.now();
+		System.out.println("Method2 started At"+dt.format( DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss")));
+		Thread.sleep(10000);
+		//WebDriver testDriver = DriverManager.getDriver();
+		//testDriver.findElement(By.xpath("//input[@placeholder='Search for Products, Brands and More']")).click();
+		//testDriver.findElement(By.xpath("//input[@placeholder='Search for Products, Brands and More']")).sendKeys("iphone16"+Keys.ENTER);
+		//testDriver.findElement(By.xpath("//div[normalize-space()='Apple iPhone 16 (Black, 128 GB)']")).click();
+		//System.out.println("===============/////////////////"+testDriver.getTitle());;	
+		//Thread.sleep(1000);
 		System.out.println("Method2 End At"+dt.format( DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss")));
 	}
 	//@Test
-	public void testMethod3() throws InterruptedException {
+	public void testMethod31() throws InterruptedException {
 		WebDriver testDriver = DriverManager.getDriver();
 		testDriver.findElement(By.xpath("//input[@name='emailPhone']")).sendKeys("admin@teknobuilt.com");
 		testDriver.findElement(By.xpath("//input[@name='password']")).sendKeys("u5s3[CY1T$i=");
