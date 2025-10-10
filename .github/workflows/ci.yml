@@ -26,7 +26,7 @@ jobs:
         run: |
           [xml]$xml = Get-Content testng.xml
 
-          $params = @{}
+          $params = @{ }
           foreach ($p in $xml.suite.parameter) {
             $params[$p.name] = $p.value
           }
@@ -63,7 +63,20 @@ jobs:
             -Dbrowserstack=${{ env.browserstack }} `
             -DsuiteXmlFile="testng.xml"
 
-      # ✅ Optional: upload reports
+      # ✅ Generate Allure report
+      - name: Generate Allure Report
+        if: always()
+        run: mvn allure:report
+
+      # ✅ Upload Allure report artifact
+      - name: Upload Allure Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: target/site/allure-maven-plugin/
+
+      # ✅ Archive TestNG reports
       - name: Archive TestNG reports
         if: always()
         uses: actions/upload-artifact@v4
